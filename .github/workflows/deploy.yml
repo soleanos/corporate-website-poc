@@ -1,0 +1,83 @@
+# ============================================================================
+# FL2S — Déploiement automatique sur FTP via GitHub Actions
+# ----------------------------------------------------------------------------
+# Déclencheurs : push sur la branche `main` ou déclenchement manuel.
+# Étapes : install -> build (Vite) -> upload du dossier `dist/` sur le FTP.
+#
+# Secrets à configurer dans GitHub (Settings > Secrets and variables > Actions) :
+#   - FTP_SERVER       (ex: ftp.votre-hebergeur.com)
+#   - FTP_USERNAME     (login FTP fourni par l'hébergeur)
+#   - FTP_PASSWORD     (mot de passe FTP)
+#   - FTP_SERVER_DIR   (ex: /www/ ou /htdocs/ — chemin racine du site sur le FTP)
+#   - WEB3FORMS_KEY    (clé publique Web3Forms pour le formulaire de contact)
+#
+# Voir docs/DEPLOYMENT.md pour le guide pas à pas (avec captures).
+# ============================================================================
+name: Deploy FL2S to FTP
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-ftp
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (Vite)
+        env:
+          VITE_WEB3FORMS_KEY: ${{ secrets.WEB3FORMS_KEY }}
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          if [ ! -f dist/index.html ]; then
+            echo "::error::Le build a échoué : dist/index.html introuvable."
+            exit 1
+          fi
+          du -sh dist
+          ls -la dist
+
+      - name: Deploy to FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          local-dir: ./dist/
+          protocol: ftps
+          security: loose
+          dangerous-clean-slate: false
+          log-level: standard
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.DS_Store
+
+      - name: Summary
+        if: success()
+        run: |
+          echo "### ✅ Déploiement FL2S terminé" >> $GITHUB_STEP_SUMMARY
+          echo "- Site mis à jour sur le FTP" >> $GITHUB_STEP_SUMMARY
+          echo "- Commit : \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY

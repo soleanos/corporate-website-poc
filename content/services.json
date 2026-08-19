@@ -1,0 +1,50 @@
+[
+  {
+    "id": "amoa",
+    "icon": "compass",
+    "title": "AMOA",
+    "summary": "Assistance à maîtrise d'ouvrage de bout en bout : cadrage du besoin, spécifications, recette, conduite du changement.",
+    "items": [
+      "Cadrage et étude d'opportunité",
+      "Rédaction d'expressions de besoin et de spécifications fonctionnelles",
+      "Animation d'ateliers métier",
+      "Stratégie et plan de recette"
+    ]
+  },
+  {
+    "id": "pilotage",
+    "icon": "target",
+    "title": "Pilotage de projets",
+    "summary": "Direction de projet et programme : planning, comitologie, risques, budget, qualité — sans posture, avec des décisions.",
+    "items": [
+      "Direction de projet / programme",
+      "PMO et reporting exécutif",
+      "Gestion des risques et plans de remédiation",
+      "Pilotage hybride agile/cycle en V"
+    ]
+  },
+  {
+    "id": "transformation",
+    "icon": "trending-up",
+    "title": "Transformation & SI",
+    "summary": "Accompagnement des transformations métier et SI : trajectoires, cibles, accompagnement humain.",
+    "items": [
+      "Schémas directeurs et trajectoires",
+      "Cadrage de programmes de transformation",
+      "Conduite du changement",
+      "Aide au choix éditeur / intégrateur"
+    ]
+  },
+  {
+    "id": "audit",
+    "icon": "search",
+    "title": "Audit & remise sur les rails",
+    "summary": "Diagnostic franc, recommandations exécutables, plan d'action chiffré. Idéal sur projets en difficulté.",
+    "items": [
+      "Audit flash (2 à 3 semaines)",
+      "Plan de remise sur les rails",
+      "Coaching de chefs de projet",
+      "Revue de portefeuille"
+    ]
+  }
+]

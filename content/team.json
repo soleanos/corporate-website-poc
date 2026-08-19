@@ -1,0 +1,24 @@
+[
+  {
+    "_doc": "POUR AJOUTER UN MEMBRE : copiez un bloc { ... } complet, collez-le, modifiez les valeurs. POUR SUPPRIMER : effacez le bloc entier. POUR UNE PHOTO : mettez un fichier dans /public/team/ (ex: jean-dupont.jpg) puis indiquez \"photo\": \"/team/jean-dupont.jpg\". Sans photo, les initiales du nom s'affichent automatiquement.",
+    "name": "Prénom Nom",
+    "role": "Associé — Direction de projets",
+    "bio": "15+ ans en AMOA et pilotage de grands programmes SI. Spécialité : projets transverses et remise sur les rails.",
+    "linkedin": "",
+    "photo": ""
+  },
+  {
+    "name": "Prénom Nom",
+    "role": "Associé — AMOA",
+    "bio": "Cadrage, spécifications, recette. Sait dire non aux scopes qui dérapent.",
+    "linkedin": "",
+    "photo": ""
+  },
+  {
+    "name": "Prénom Nom",
+    "role": "Consultant senior",
+    "bio": "PMO, reporting exécutif, gestion des risques. Le calme dans la tempête.",
+    "linkedin": "",
+    "photo": ""
+  }
+]

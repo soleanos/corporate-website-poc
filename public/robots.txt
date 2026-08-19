@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.fl2s-conseil.fr/sitemap.xml

@@ -1,0 +1,80 @@
+{
+  "$schema": "./_schema/site.schema.json",
+  "brand": {
+    "name": "FL2S",
+    "fullName": "FL2S Conseil",
+    "tagline": "AMOA & Projets",
+    "baseline": "Faire avancer vos projets, sans bruit, avec méthode."
+  },
+  "seo": {
+    "title": "FL2S Conseil — AMOA & Pilotage de projets",
+    "description": "Cabinet de conseil indépendant en AMOA et pilotage de projets. Une équipe resserrée, des engagements clairs, des livrables qui tiennent.",
+    "url": "https://www.fl2s-conseil.fr",
+    "ogImage": "/og-image.png",
+    "locale": "fr_FR",
+    "keywords": ["AMOA", "pilotage de projets", "conseil", "transformation", "FL2S"]
+  },
+  "contact": {
+    "email": "contact@fl2s-conseil.fr",
+    "phone": "",
+    "address": "France",
+    "linkedin": "",
+    "_doc": "Modifiez `email` pour recevoir les messages du formulaire. La clé Web3Forms reste dans .env / les secrets GitHub."
+  },
+  "nav": [
+    { "label": "Approche", "href": "#approche" },
+    { "label": "Expertises", "href": "#expertises" },
+    { "label": "Équipe", "href": "#equipe" },
+    { "label": "Contact", "href": "#contact" }
+  ],
+  "hero": {
+    "eyebrow": "Cabinet indépendant — AMOA & Pilotage de projets",
+    "title": "Conseil indépendant.\nEngagements tenus.\nProjets livrés.",
+    "subtitle": "Nous accompagnons les directions métier et SI sur leurs projets stratégiques : cadrage, pilotage, conduite du changement. Une équipe qui se connaît, qui livre, qui assume.",
+    "primaryCta": { "label": "Travailler avec nous", "href": "#contact" },
+    "secondaryCta": { "label": "Voir nos expertises", "href": "#expertises" }
+  },
+  "approach": {
+    "title": "Une équipe resserrée. Des engagements clairs.",
+    "lede": "Nous sommes un cabinet indépendant, construit autour d'une équipe sénior qui se connaît et travaille ensemble depuis des années. Nos clients restent parce qu'ils savent ce qu'ils paient — et ce qu'ils reçoivent.",
+    "pillars": [
+      {
+        "title": "Pragmatisme",
+        "body": "Des livrables utiles, pas des slides pour la forme. On entre dans le sujet, on cadre, on avance."
+      },
+      {
+        "title": "Indépendance",
+        "body": "Pas de revente déguisée, pas d'intérêt caché. Notre seul mandat : votre projet qui aboutit."
+      },
+      {
+        "title": "Continuité",
+        "body": "Les mêmes consultants du cadrage au déploiement. Pas de juniors parachutés au milieu du projet."
+      },
+      {
+        "title": "Discrétion",
+        "body": "Confidentialité totale. Nous travaillons aux côtés de vos équipes, jamais à leur place sans accord."
+      }
+    ]
+  },
+  "expertises": {
+    "title": "Ce sur quoi nous intervenons.",
+    "lede": "AMOA et pilotage, sur le cycle complet d'un projet — du cadrage au RUN."
+  },
+  "trust": {
+    "title": "Une exigence reconnue.",
+    "lede": "Nos références ne sont pas publiques. Elles vous sont présentées en rendez-vous, sur demande."
+  },
+  "contactSection": {
+    "title": "Parlons de votre projet.",
+    "lede": "Décrivez votre contexte en quelques lignes. Nous reviendrons vers vous avec un premier échange cadré.",
+    "successMessage": "Message envoyé. Nous vous répondons rapidement.",
+    "errorMessage": "L'envoi a échoué. Vous pouvez nous écrire directement à l'adresse ci-dessus."
+  },
+  "footer": {
+    "legalLinks": [
+      { "label": "Mentions légales", "href": "/mentions-legales.html" },
+      { "label": "Politique de confidentialité", "href": "/confidentialite.html" }
+    ],
+    "copyright": "© {year} FL2S Conseil. Tous droits réservés."
+  }
+}
