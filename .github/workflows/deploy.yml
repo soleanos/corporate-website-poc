@@ -1,19 +1,4 @@
-# ============================================================================
-# FL2S — Déploiement automatique sur FTP via GitHub Actions
-# ----------------------------------------------------------------------------
-# Déclencheurs : push sur la branche `main` ou déclenchement manuel.
-# Étapes : install -> build (Vite) -> upload du dossier `dist/` sur le FTP.
-#
-# Secrets à configurer dans GitHub (Settings > Secrets and variables > Actions) :
-#   - FTP_SERVER       (ex: ftp.votre-hebergeur.com)
-#   - FTP_USERNAME     (login FTP fourni par l'hébergeur)
-#   - FTP_PASSWORD     (mot de passe FTP)
-#   - FTP_SERVER_DIR   (ex: /www/ ou /htdocs/ — chemin racine du site sur le FTP)
-#   - WEB3FORMS_KEY    (clé publique Web3Forms pour le formulaire de contact)
-#
-# Voir docs/DEPLOYMENT.md pour le guide pas à pas (avec captures).
-# ============================================================================
-name: Deploy FL2S to FTP
+name: Deploy FL2S
 
 on:
   push:
@@ -21,8 +6,13 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: deploy-ftp
+  group: deploy-fl2s
   cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
@@ -30,7 +20,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
+      # ============================================================
+      # BUILD
+      # ============================================================
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -54,10 +52,44 @@ jobs:
             echo "::error::Le build a échoué : dist/index.html introuvable."
             exit 1
           fi
+
           du -sh dist
           ls -la dist
 
+      # ============================================================
+      # GITHUB PAGES
+      #
+      # Cible par défaut.
+      #
+      # DEPLOY_TARGET possible :
+      # github
+      # ftp
+      # ============================================================
+
+      - name: Setup GitHub Pages
+        if: vars.DEPLOY_TARGET == '' || vars.DEPLOY_TARGET == 'github'
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages artifact
+        if: vars.DEPLOY_TARGET == '' || vars.DEPLOY_TARGET == 'github'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+      - name: Deploy GitHub Pages
+        id: deployment
+        if: vars.DEPLOY_TARGET == '' || vars.DEPLOY_TARGET == 'github'
+        uses: actions/deploy-pages@v4
+
+      # ============================================================
+      # FTP
+      #
+      # Utilisé lorsque :
+      # DEPLOY_TARGET = ftp
+      # ============================================================
+
       - name: Deploy to FTP
+        if: vars.DEPLOY_TARGET == 'ftp'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -75,9 +107,20 @@ jobs:
             **/node_modules/**
             **/.DS_Store
 
-      - name: Summary
-        if: success()
+      # ============================================================
+      # SUMMARY
+      # ============================================================
+
+      - name: Summary GitHub Pages
+        if: success() && (vars.DEPLOY_TARGET == '' || vars.DEPLOY_TARGET == 'github')
         run: |
           echo "### ✅ Déploiement FL2S terminé" >> $GITHUB_STEP_SUMMARY
-          echo "- Site mis à jour sur le FTP" >> $GITHUB_STEP_SUMMARY
+          echo "- 🌐 Cible : GitHub Pages" >> $GITHUB_STEP_SUMMARY
+          echo "- Commit : \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+
+      - name: Summary FTP
+        if: success() && vars.DEPLOY_TARGET == 'ftp'
+        run: |
+          echo "### ✅ Déploiement FL2S terminé" >> $GITHUB_STEP_SUMMARY
+          echo "- 🖥️ Cible : serveur FTP" >> $GITHUB_STEP_SUMMARY
           echo "- Commit : \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
