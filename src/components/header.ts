@@ -6,7 +6,7 @@ export function renderHeader(site: Site): string {
   <header class="site-header" data-site-header>
     <div class="container-page flex h-16 items-center justify-between md:h-20">
       <a href="#" class="flex items-center gap-3" aria-label="${site.brand.name} — accueil">
-        <img src="/logo.png" alt="" class="h-12 w-12 rounded-md object-contain md:h-14 md:w-14" />
+        <img src="${import.meta.env.BASE_URL}logo.png" alt="" class="h-12 w-12 rounded-md object-contain md:h-14 md:w-14" />
         <span class="leading-tight">
           <span class="block font-display text-lg font-semibold text-navy md:text-xl">${site.brand.name}</span>
           <span class="block text-[10px] uppercase tracking-[0.22em] text-emerald2-600 md:text-[11px]">${site.brand.tagline}</span>

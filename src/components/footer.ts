@@ -12,7 +12,7 @@ export function renderFooter(site: Site): string {
       <div class="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
         <div>
           <div class="flex items-center gap-3">
-            <img src="/logo.png" alt="" class="h-12 w-12 rounded-md object-contain" />
+            <img src="${import.meta.env.BASE_URL}logo.png" alt="" class="h-12 w-12 rounded-md object-contain" />
             <div>
               <div class="font-display text-lg font-semibold text-white">${site.brand.name}</div>
               <div class="text-[10px] uppercase tracking-[0.22em] text-emerald2-200">${site.brand.tagline}</div>
